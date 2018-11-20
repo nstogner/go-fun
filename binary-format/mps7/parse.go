@@ -9,6 +9,8 @@ import (
 	"github.com/pkg/errors"
 )
 
+var byteOrder = binary.BigEndian
+
 // File is a mps7 file.
 type File struct {
 	Header  Header
@@ -73,7 +75,7 @@ func ReadHeader(r io.Reader) (Header, error) {
 		RecordCount uint32
 	}
 
-	if err := binary.Read(r, binary.BigEndian, &raw); err != nil {
+	if err := binary.Read(r, byteOrder, &raw); err != nil {
 		return Header{}, err
 	}
 
@@ -141,14 +143,14 @@ func ReadRecord(r io.Reader) (Record, error) {
 		UserID uint64
 	}
 
-	if err := binary.Read(r, binary.BigEndian, &raw); err != nil {
+	if err := binary.Read(r, byteOrder, &raw); err != nil {
 		return Record{}, errors.Wrap(err, "reading main record")
 	}
 
 	var amt float64
 	switch RecordType(raw.Type) {
 	case RecordTypeDebit, RecordTypeCredit:
-		if err := binary.Read(r, binary.BigEndian, &amt); err != nil {
+		if err := binary.Read(r, byteOrder, &amt); err != nil {
 			return Record{}, errors.Wrap(err, "reading amount")
 		}
 	}
