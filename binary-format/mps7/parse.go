@@ -40,7 +40,6 @@ func ReadFile(r io.Reader) (*File, error) {
 		if err != nil {
 			return nil, errors.Wrap(err, "reading record")
 		}
-		fmt.Println(f.Records[i].Timestamp.Unix())
 	}
 
 	return &f, nil
