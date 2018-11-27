@@ -100,7 +100,7 @@ func (t RecordType) String() string {
 	case RecordTypeDebit:
 		return "DEBIT"
 	case RecordTypeCredit:
-		return "DEBIT"
+		return "CREDIT"
 	case RecordTypeStartAutopay:
 		return "START_AUTOPAY"
 	case RecordTypeEndAutopay:
